@@ -19,14 +19,15 @@
 
         <v-img
         alt="Work from home image"
-        class="shrink mt-1"
+        class="shrink mt-1 ml-10"
         contain
         :src="WorkImage"
         width="350"
         />
       
       <v-spacer></v-spacer>
-
+      {{$store.getters.loggedInUser.first_name}} 
+      {{$store.getters.loggedInUser.last_name}}
       <v-btn icon>
         <v-icon>mdi-logout</v-icon>
       </v-btn>
