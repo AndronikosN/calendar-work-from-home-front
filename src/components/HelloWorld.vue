@@ -12,7 +12,7 @@
 
       <v-col class="mb-4">
         <h1 class="display-2 font-weight-bold mb-3">
-          Welcome to Vuetify
+          Welcome to Vuetify {{counter}}
         </h1>
 
         <p class="subheading font-weight-regular">
@@ -146,6 +146,14 @@
           href: 'https://vuetifyjs.com/getting-started/frequently-asked-questions',
         },
       ],
+      counter: 1
     }),
+    created() {
+      console.log(this.counter);
+      console.log(this.$store.getters.counter);
+      this.$store.commit('setCounter',2)
+      this.counter = this.$store.getters.counter
+      console.log(this.$store.getters.counter);
+    }
   }
 </script>
