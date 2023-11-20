@@ -1,12 +1,12 @@
 <template>
   <div class="mt-5 ml-16 mr-16">
-    <v-card outlined class="mt-6" elevation="10">
+    <v-card outlined class="mt-6 mb-6" elevation="10">
       <v-sheet
         tile
         height="54"
         class="d-flex"
       >
-        <v-btn icon class="ma-2" @click="$refs.calendar.prev(), getMonth()">
+        <v-btn icon class="ma-2" :disabled="disabledBackMonth" @click="$refs.calendar.prev(), getMonth()">
           <v-icon>mdi-chevron-left</v-icon>
         </v-btn>
 
@@ -31,7 +31,7 @@
         </v-btn>
 
       </v-sheet>
-      <v-sheet height="800">
+      <v-sheet height="900">
         <v-calendar
           ref="calendar"
           v-model="value"
@@ -50,16 +50,19 @@
           v-model="dates"
           :min="minDate"
           :max="maxDate"
+          :show-current="value"
+          :allowed-dates="allowedDates"
           first-day-of-week="1"
           multiple
           width="650px"
           color="#008B8B"
           landscape
           elevation="18"
+          :key="datePickerKey"
         >
-          <v-btn @click="submitYourDays()" color="primary" text x-small>submit</v-btn>
+          <v-btn @click="closeEditor()" color="red" text small>cancel</v-btn>
           <v-spacer/>
-          <v-btn @click="closeEditor()" color="red" text x-small>cancel</v-btn>
+          <v-btn @click="submitYourDays()" color="primary" text small>submit</v-btn>
         </v-date-picker>
        </v-card>
     </v-dialog> 
@@ -73,32 +76,39 @@
     data: () => ({
       type: 'month',
       mode: 'stack',
-      value: new Date().toISOString().split('T')[0],
+      value:  new Date(new Date().setMonth(new Date().getMonth() + 1)).toISOString().split('T')[0],
       month:'',
       year:'',
+      monthNumber: 0,
       editDialog: false,
       events: [],
       dates: [],
+      datePickerKey: 0,
     }),
     computed:{
       minDate() {
         let month = this.value.split('-')[1]
         let year = this.value.split('-')[0]
         let minDate = year + '-' + month + '-' + '01'
-      
+
         return minDate
       },
       maxDate() {
         let month = this.value.split('-')[1]
         let year = this.value.split('-')[0]
         let maxDate = year + '-' + month + '-' + '31'
-        
+
         return maxDate
+      },
+      disabledBackMonth() {
+        console.log(this.monthNumber);
+        return parseInt(this.monthNumber) - parseInt(new Date().getMonth()) === 2;
       }
     },
     methods: {
       getMonth() {
         let monthNumber = this.value.split('-')[1]
+        this.monthNumber = monthNumber
         this.year = this.value.split('-')[0]
 
         if (monthNumber == 1) {
@@ -128,6 +138,7 @@
         }
       },
       enableEditor(){
+        this.datePickerKey++
         this.editDialog = true
       },
       closeEditor() {
@@ -135,7 +146,6 @@
         this.dates = []
       },
       submitYourDays(){
-        console.log(this.dates);
         for(let i=0; i<this.dates.length; i++){
           let day = {
             name: this.$store.getters.loggedInUser.first_name + ' ' +  this.$store.getters.loggedInUser.last_name,
@@ -146,7 +156,19 @@
           this.events.push(day)
         }
         this.closeEditor()
-      }
+      },
+      allowedDates(date) {
+        // If the value is a string, convert it to a Date object
+        if (typeof date === 'string') {
+          date = new Date(date);
+        }
+
+        // Get the day of the week (0 for Sunday, 1 for Monday, etc.)
+        const dayOfWeek = date.getDay();
+        console.log(dayOfWeek);
+        // Allow dates that are not Saturday (6) or Sunday (0)
+        return dayOfWeek !== 0 && dayOfWeek !== 6;
+      },
     },
 
     created() {
