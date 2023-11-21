@@ -19,7 +19,7 @@
 
         <v-img
         alt="Work from home image"
-        class="shrink mt-1 ml-10"
+        class="shrink hidden-sm-and-down mt-1 ml-10"
         contain
         :src="WorkImage"
         width="350"

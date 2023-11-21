@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-5 ml-16 mr-16">
+  <div class="mt-5" :style="isMobile ? '' : 'margin-left: 40px; margin-right: 40px;'">
     <v-card outlined class="mt-6 mb-6" elevation="10">
       <v-sheet
         tile
@@ -35,10 +35,13 @@
         <v-calendar
           ref="calendar"
           v-model="value"
+          weekdays="1,2,3,4,5"
           :type="type"
           :events="events"
           :event-overlap-mode="mode"
           :event-overlap-threshold="30"
+          :show-month-on-first="false"
+          :short-weekdays="false"
         ></v-calendar>
         <!-- @change="getEvents" -->
       </v-sheet>
@@ -86,6 +89,11 @@
       datePickerKey: 0,
     }),
     computed:{
+      isMobile() {
+        let innerWidth = window.innerWidth
+        console.log(innerWidth);
+        return innerWidth < 960;
+      },
       minDate() {
         let month = this.value.split('-')[1]
         let year = this.value.split('-')[0]
@@ -101,7 +109,6 @@
         return maxDate
       },
       disabledBackMonth() {
-        console.log(this.monthNumber);
         return parseInt(this.monthNumber) - parseInt(new Date().getMonth()) === 2;
       }
     },
@@ -165,7 +172,6 @@
 
         // Get the day of the week (0 for Sunday, 1 for Monday, etc.)
         const dayOfWeek = date.getDay();
-        console.log(dayOfWeek);
         // Allow dates that are not Saturday (6) or Sunday (0)
         return dayOfWeek !== 0 && dayOfWeek !== 6;
       },
