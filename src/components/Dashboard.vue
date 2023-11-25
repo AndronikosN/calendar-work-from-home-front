@@ -13,7 +13,9 @@
         <v-spacer></v-spacer>
         <div class="ml-8">
           <v-row align="center" style="margin-top: 1px">
-            {{month}} {{year}}
+            <section style="font-size: 18px;">
+              {{month}} {{year}}
+            </section>
             <v-tooltip right>
               <template v-slot:activator="{ on }">
                 <v-btn icon v-on="on" @click="enableEditor()">
@@ -87,11 +89,19 @@
       events: [],
       dates: [],
       datePickerKey: 0,
+
+      datesToBlock:[],
+      counter:0,
+      week: [],
+
+      //propertyValue
+      daysPerMonth: 5,
+      daysPerWeek:2,
+      peoplePerDay: 5,
     }),
     computed:{
       isMobile() {
         let innerWidth = window.innerWidth
-        console.log(innerWidth);
         return innerWidth < 960;
       },
       minDate() {
@@ -169,11 +179,25 @@
         if (typeof date === 'string') {
           date = new Date(date);
         }
-
         // Get the day of the week (0 for Sunday, 1 for Monday, etc.)
         const dayOfWeek = date.getDay();
         // Allow dates that are not Saturday (6) or Sunday (0)
         return dayOfWeek !== 0 && dayOfWeek !== 6;
+      },
+
+      saveAllDates(date) {
+        let stringDate = date
+        if (typeof date === 'string') {
+          date = new Date(date);
+        }
+        const dayOfWeek = date.getDay();
+
+        this.week.push(stringDate);
+        if (dayOfWeek === 6) {
+          this.datesToBlock.push([...this.week]); // Use a copy to avoid reactivity issues
+          this.week = [];
+        }
+        console.log(this.datesToBlock);
       },
     },
 
