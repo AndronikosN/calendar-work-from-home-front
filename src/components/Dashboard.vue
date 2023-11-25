@@ -1,6 +1,6 @@
 <template>
-  <div class="mt-5" :style="isMobile ? '' : 'margin-left: 40px; margin-right: 40px;'">
-    <v-card outlined class="mt-6 mb-6" elevation="10">
+  <div class="mt-2" :style="isMobile ? '' : 'margin-left: 150px; margin-right: 150px;'">
+    <v-card outlined class="mt-3 mb-6" elevation="10">
       <v-sheet
         tile
         height="54"
@@ -47,7 +47,7 @@
       </v-sheet>
     </v-card>
 
-    <v-dialog v-model="editDialog" persistent width="820px">
+    <v-dialog v-model="editDialog" persistent :width="isMobile? '350px' : '820px'">
        <v-card>
         <v-date-picker
           v-model="dates"
@@ -57,9 +57,9 @@
           :allowed-dates="allowedDates"
           first-day-of-week="1"
           multiple
-          width="650px"
+          :width="isMobile? '350px' : '650px'"
           color="#008B8B"
-          landscape
+          :landscape="!isMobile"
           elevation="18"
           :key="datePickerKey"
         >
