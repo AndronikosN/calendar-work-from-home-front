@@ -9,7 +9,8 @@ export default new Vuex.Store({
     loggedInUser: {
       first_name: "Andronikos",
       last_name: "Ntinos"
-    }
+    },
+    loggedIn:false,
   },
   mutations: {
     setCounter: function(state,data) {
@@ -18,6 +19,9 @@ export default new Vuex.Store({
     setLoggedInUser: function (state,data) {
       state.loggedInUser = data
     },
+    setLoggedIn: function (state,data) {
+      state.loggedIn = data
+    },
   },
   actions: {
     // Your actions go here
@@ -25,5 +29,6 @@ export default new Vuex.Store({
   getters: {
     counter: (state) => state.counter,
     loggedInUser: (state) => state.loggedInUser,
+    loggedIn: (state) => state.loggedIn,
   },
 });

@@ -11,16 +11,16 @@ export default new Vuetify({
     theme: {
         themes: {
             light: {
-                primary: '#5e88fc',      // Soft Blue
-                secondary: '#ffb88c',    // Peachy Orange
-                accent: '#6ed3cf',       // Turquoise
-                error: '#ff7e67',        // Coral
-                info: '#a4a4a4',         // Light Gray
-                success: '#ffcc29',      // Yellow
-                background: '#f4f4f4',   // Light Gray
-                cardBackground: '#dfe6e9', // Cloudy Blue
-                text: '#2d3436',         // Charcoal Black
-                white: '#ffffff',        // White
+                primary: '#6A76AB',      // Periwinkle
+                secondary: '#F9EBB2',    // Pale Gold
+                accent: '#BFD7EA',       // Sky Blue
+                error: '#FF6666',        // Light Coral
+                info: '#DADADA',         // Light Gray
+                success: '#8ED081',      // Sage Green
+                background: '#F4F4F4',   // Platinum
+                cardBackground: '#E1E7E8', // Powder Blue
+                text: '#333333',         // Dark Charcoal
+                white: '#FFFFFF',        // White
 
                 primary2: '#7F74EB',      // Lavender
                 secondary2: '#FF7F50',    // Coral
