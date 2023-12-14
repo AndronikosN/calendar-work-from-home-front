@@ -2,7 +2,7 @@
   <div class="mt-2">
     <v-container>
       <v-row align="center" justify="center">
-        <v-col cols="12" sm="10">
+        <v-col cols="10" sm="8">
           <v-hover v-slot="{ hover }">
             <v-card class="mt-5" :elevation="hover ? 14 : 2" style="border-radius: 24px">
               <v-window v-model="step">
