@@ -1,6 +1,6 @@
 <template>
   <div class="mt-2" :style="isMobile ? '' :
-    'margin-left: 150px; margin-right: 150px;'">
+    'margin-left: 20px; margin-right: 20px;'">
     <v-row align="center" justify="center" :style="isMobile ? '' : 'margin-top:100px'">
       <v-col cols="11" sm="8">
         <v-hover v-slot="{ hover }">
@@ -97,9 +97,6 @@
                           <v-icon>
                             mdi-calendar-range
                           </v-icon>
-                        </v-col>
-                        <v-col>
-
                         </v-col>
                       </v-row>
                     </v-card-text>
